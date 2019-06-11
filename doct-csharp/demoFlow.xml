@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Flow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Hostname>host.name</Hostname>
+  <Tasks>
+    <Task xsi:type="CollectorTask">
+      <Description>First task, performance</Description>
+      <MillisecondDuration>1000</MillisecondDuration>
+      <Mode>Performance</Mode>
+      <Threshold>101</Threshold>
+    </Task>
+    <Task xsi:type="CollectorTask">
+      <Description>Second task, delays</Description>
+      <MillisecondDuration>1000</MillisecondDuration>
+      <Mode>Delays</Mode>
+      <Threshold>65</Threshold>
+    </Task>
+  </Tasks>
+</Flow>
