@@ -21,7 +21,7 @@ namespace doWhile.Doct.Tests
             task.Setup(x => x.Description).Returns("Task description");
             task.Setup(x => x.MillisecondDuration).Returns(1);
             task.Setup(x => x.Mode).Returns(CollectorMode.Performance);
-            task.Setup(x => x.Threshold).Returns(90);
+            task.Setup(x => x.Threshold).Returns(threshold);
 
             return CollectorTaskRunner.RunTask(task.Object, collector.Object);
         }
@@ -39,9 +39,9 @@ namespace doWhile.Doct.Tests
         public void RunPerformanceTaskTest_Failure()
         {
             var result = RunPerformanceTask(95);
-            Assert.IsTrue(result.Success);
-            Assert.IsTrue(result.Messages.Count == 1);
-            Assert.AreEqual("All measurements above or at threshold", result.Messages[0]);
+            Assert.IsFalse(result.Success);
+            Assert.IsTrue(result.Messages.Count == 2);
+            Assert.AreEqual("Measurement below threshold: 90", result.Messages[0]);
         }
 
         private TaskResult PrepareDelaysTest(int threshold)
