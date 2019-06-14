@@ -29,6 +29,9 @@ namespace doWhile.Doct
                 case CollectorMode.Delays:
                     CheckDelaysResults(results, taskResult, task.Threshold);
                     break;
+                case CollectorMode.HitRate:
+                    CheckHitRateResults(results, taskResult, task.Threshold);
+                    break;
                 default:
                     throw new ArgumentException("Unknown CollectorMode " + task.Mode.ToString());
             }
@@ -95,6 +98,34 @@ namespace doWhile.Doct
             {
                 taskResult.Success = true;
                 taskResult.Messages.Add("All delays below or at threshold");
+            }
+        }
+
+        /// <summary>
+        /// Parse provided results and check if any values are ABOV the threshold. Any value above this value will be logged and cause a failure.
+        /// </summary>
+        /// <param name="results">Results</param>
+        /// <param name="taskResult">Instance to report check results to</param>
+        /// <param name="threshold">minimum value allowed, any value above this will cause a fail</param>
+        private static void CheckHitRateResults(List<String> results, TaskResult taskResult, int threshold)
+        {
+            // Each line in the result is a single number
+            var parsedResults = results.Select(x => new { enu = decimal.Parse(x.Split('/')[0]), den = decimal.Parse(x.Split('/')[1]) });
+            var failureResults = parsedResults.Where(x => x.enu / x.den * 100 < threshold);
+
+            if (failureResults.Any())
+            {
+                taskResult.Success = false;
+
+                foreach (var result in failureResults)
+                {
+                    taskResult.Messages.Add("Measurement below threshold: " + (result.enu/result.den * 100).ToString("0.##"));
+                }
+            }
+            else
+            {
+                taskResult.Success = true;
+                taskResult.Messages.Add("All measurements above or at threshold");
             }
         }
 

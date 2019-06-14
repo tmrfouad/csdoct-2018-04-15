@@ -14,5 +14,17 @@
       <Mode>Delays</Mode>
       <Threshold>65</Threshold>
     </Task>
+    <Task xsi:type="CollectorTask">
+      <Description>Third task, hit rate</Description>
+      <MillisecondDuration>1000</MillisecondDuration>
+      <Mode>HitRate</Mode>
+      <Threshold>95</Threshold>
+    </Task>
+    <Task xsi:type="CollectorTask">
+      <Description>Fourth task, hit rate</Description>
+      <MillisecondDuration>1000</MillisecondDuration>
+      <Mode>HitRate</Mode>
+      <Threshold>50</Threshold>
+    </Task>
   </Tasks>
 </Flow>

@@ -15,7 +15,7 @@ namespace doWhile.Doct.Data
 
         public override string ToString()
         {
-            return "CollectorTask, mode: " + Mode.ToString() + ", threshold: " + Threshold;
+            return "CollectorTask, mode: " + Mode.ToString() + ", threshold: " + Threshold + ", " + Description;
         }
     }
 }
